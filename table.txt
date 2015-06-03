@@ -1,0 +1,93 @@
+state1:
+closureItem(item=item(name='G', shifted=[], unshifted=['S']), follow=['$'])
+closureItem(item=item(name='S', shifted=[], unshifted=['S', 'A']), follow=['a', '$'])
+closureItem(item=item(name='S', shifted=[], unshifted=['A']), follow=['a', '$'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'S', 'b']), follow=['a', '$'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'b']), follow=['a', '$'])
+
+
+
+state2:me='G', shifted=['S'], unshifted=[]), follow=['$'])
+closureItem(item=item(na
+closureItem(item=item(name='S', shifted=['S'], unshifted=['A']), follow=['a', '$'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'S', 'b']), follow=['a', '$'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'b']), follow=['a', '$'])
+
+
+
+state3:
+closureItem(item=item(name='S', shifted=['A'], unshifted=[]), follow=['a', '$'])
+
+
+
+state4:
+closureItem(item=item(name='A', shifted=['a'], unshifted=['S', 'b']), follow=['a', '$'])
+closureItem(item=item(name='A', shifted=['a'], unshifted=['b']), follow=['a', '$'])
+closureItem(item=item(name='S', shifted=[], unshifted=['S', 'A']), follow=['a', 'b'])
+closureItem(item=item(name='S', shifted=[], unshifted=['A']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'S', 'b']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'b']), follow=['a', 'b'])
+
+
+
+state5:
+closureItem(item=item(name='S', shifted=['S', 'A'], unshifted=[]), follow=['a', '$'])
+
+
+
+state6:
+closureItem(item=item(name='A', shifted=['a', 'S'], unshifted=['b']), follow=['a', '$'])
+closureItem(item=item(name='S', shifted=['S'], unshifted=['A']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'S', 'b']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'b']), follow=['a', 'b'])
+
+
+
+state7:
+closureItem(item=item(name='A', shifted=['a', 'b'], unshifted=[]), follow=['a', '$'])
+
+
+
+state8:
+closureItem(item=item(name='S', shifted=['A'], unshifted=[]), follow=['a', 'b'])
+
+
+
+state9:
+closureItem(item=item(name='A', shifted=['a'], unshifted=['S', 'b']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=['a'], unshifted=['b']), follow=['a', 'b'])
+closureItem(item=item(name='S', shifted=[], unshifted=['S', 'A']), follow=['a', 'b'])
+closureItem(item=item(name='S', shifted=[], unshifted=['A']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'S', 'b']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'b']), follow=['a', 'b'])
+
+
+
+state10:
+closureItem(item=item(name='A', shifted=['a', 'S', 'b'], unshifted=[]), follow=['a', '$'])
+
+
+
+state11:
+closureItem(item=item(name='S', shifted=['S', 'A'], unshifted=[]), follow=['a', 'b'])
+
+
+
+state12:
+closureItem(item=item(name='A', shifted=['a', 'S'], unshifted=['b']), follow=['a', 'b'])
+closureItem(item=item(name='S', shifted=['S'], unshifted=['A']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'S', 'b']), follow=['a', 'b'])
+closureItem(item=item(name='A', shifted=[], unshifted=['a', 'b']), follow=['a', 'b'])
+
+
+
+state13:
+closureItem(item=item(name='A', shifted=['a', 'b'], unshifted=[]), follow=['a', 'b'])
+
+
+
+state14:
+closureItem(item=item(name='A', shifted=['a', 'S', 'b'], unshifted=[]), follow=['a', 'b'])
+
+
+
