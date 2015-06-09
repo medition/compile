@@ -265,10 +265,66 @@ class FileParse:
     def getSection(self):
         content = self.file.read()
         self.firstSection,self.secondSection,self.thirdSection = tuple(content.split("%%\n"))
+        # print self.secondSection
+        self.secondSection = self.clearComment(self.secondSection)
+        print self.secondSection
+
+
+    def clearComment(self,string):
+        left = 0  #左括号次数
+        right = 0 #右括号次数
+        s = '' #返回的字符
+        leftPos = 0 #左注释符位置
+        rightPos = 0 #右注释符位置
+        count = 0 #清空的注释数量
+        startPos = 0 #开始截取字符串的位置
+        i=0
+        while i < len(string):
+            if  left == right and left >0:
+                count += 1
+                s += string[startPos:leftPos]
+                startPos = rightPos
+                left = right = 0
+            elif string [i:i+2] == '/*':
+                left += 1
+                leftPos = i
+                i += 1
+            elif string [i:i+2] == '*/':
+                right += 1
+                rightPos = i+2
+                i += 1
+            i += 1
+        s += string[startPos:]
+        print count
+        return s if count > 0 else string
+
+    def splitSectionBySemicolon(self,string):
+        l = []
+        leftBracketCount = 0
+        count =0
+        rightBracketCount =0
+        lastPosition = 0
+        for index,i in enumerate(string):
+            if i==';' and leftBracketCount==rightBracketCount:
+                l.append(string[lastPosition:index])
+                lastPosition = index + 1
+            elif i=='{':
+                leftBracketCount += 1
+                # count += 1
+            elif i=='}':
+                rightBracketCount += 1
+                # count -= 1
+        return l
+
+
+
+
     def parseRules(self):
         self.parseToken()
-        l = self.secondSection.split(";")
-        del l[-1]
+        # l = self.secondSection.split(";")
+        l = self.splitSectionBySemicolon(self.secondSection)
+
+        print l
         for _rule in l:
             _ruleline = _rule.split(':')
             ruleName = _ruleline[0]
@@ -276,11 +332,12 @@ class FileParse:
             if len(self.lr.rules)==0:
                         self.expansionary(ruleName)
             for exp in  ruleExp.split("|"):
-
                 result = self.getAction(exp)
+                print result
                 if isinstance(result,tuple):
                     # print ruleName,self.splitRule(result[0])
                     # print result[1]
+
                     self.addRule(ruleName,self.splitRule(result[0]))
                     self.addAction(result[1])
 
@@ -325,18 +382,45 @@ class FileParse:
         self.clearValueInList(rulenameList,'')
         return rulenameList[0]
 
-
     def getAction(self,string):
-        leftBracketPostion =  string.find('{')
-        rightBracketPostion = string.rfind('}')
-        if leftBracketPostion == -1:
-            return string
-        if rightBracketPostion == -1:
-            print "lack of right bracket in rule:\n%s\n\n"%string
-            exit(0)
-        action = string[leftBracketPostion:rightBracketPostion+1]
-        substring = string[:leftBracketPostion] + string[rightBracketPostion+1:]
-        return (substring,action)
+        tString = ''
+        d = {}
+        self.getActionByBracket(string,d)
+        return (''.join([i for i in d]),d) if len(d)>0 else string
+
+    def getActionByBracket(self,string,d):
+        count = 0
+        leftCount =0
+        rightCount =0
+        left = -1
+        right = -1
+
+        for i in range(len(string)):
+            if string[i] == '{':
+                leftCount += 1
+                count += 1
+                left = i
+            elif string[i] == '}':
+                rightCount += 1
+                count -= 1
+                right = i
+            if leftCount==rightCount and leftCount >0:
+                d[string[:left]] = string[left:right+1]
+                self.getActionByBracket(string[right+1:],d)
+                break
+        return d
+
+    # def getAction(self,string):
+        # leftBracketPostion =  string.find('{')
+        # rightBracketPostion = string.rfind('}')
+        # if leftBracketPostion == -1:
+        #     return string
+        # if rightBracketPostion == -1:
+        #     print "lack of right bracket in rule:\n%s\n\n"%string
+        #     exit(0)
+        # action = string[leftBracketPostion:rightBracketPostion+1]
+        # substring = string[:leftBracketPostion] + string[rightBracketPostion+1:]
+        # return (substring,action)
 
 
     def parseToken(self):

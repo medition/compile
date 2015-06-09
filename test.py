@@ -141,7 +141,7 @@ def testParseInput():
 
 #test for FileParse
 def testParseRule():
-    parse = FileParse('minic.txt',debug=True)
+    parse = FileParse('minic.y',debug=True)
     parse.getSection()
     parse.parseRules()
     # for i in range(len(parse.lr.rules)):
@@ -151,7 +151,7 @@ def testParseRule():
     print parse.lr.rules
     parse.lr.fillTable()
     parse.lr.printTable()
-    # parse.lr.printClosureSet()
+    parse.lr.printClosureSet()
     print parse.lr.ruleAction
     # print parse.firstSection
     # for i in parse.secondSection.split(';')[4].split(":"):
